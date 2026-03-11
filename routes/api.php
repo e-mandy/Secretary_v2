@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController\Auth\AdminController;
+use App\Http\Controllers\ApiController\Auth\SecretaryController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -9,4 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 
 // ---- Authentication Routes ---- //
-Route::post('/admin_login', [AdminController::class, 'login']);
+Route::post('/admin/login', [AdminController::class, 'login']);
+
+
+Route::post('/secretary_login', [SecretaryController::class, 'login']);
+Route::post('/secretary/login', [SecretaryController::class, 'register']);
+Route::post('/secretary/email/verify/{id}/{hash}', [SecretaryController::class, 'verify'])->name('verification.verify')->middleware('signed');

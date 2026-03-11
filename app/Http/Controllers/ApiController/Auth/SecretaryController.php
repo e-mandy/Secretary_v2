@@ -20,12 +20,11 @@ class SecretaryController extends Controller
         $data = RegisterSecretaryDTO::fromRequest($request);
 
         try{
-            $response = $this->service->registerAsSecretary($data);
+            $this->service->registerAsSecretary($data);
 
             return response()->json([
                 "type" => "Sécrétariat Register",
                 "message" => "Utilisateur crée avec succès",
-                "data" => $response
             ], 201);
         }catch(Exception $e){
             return response()->json([

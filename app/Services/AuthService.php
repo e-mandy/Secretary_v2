@@ -5,8 +5,10 @@ namespace App\Services;
 use App\DTOs\Auth\AdminDTO;
 use App\DTOs\Auth\LoginSecretaryDTO;
 use App\DTOs\Auth\RegisterSecretaryDTO;
+use App\Mail\Auth\VerifyUserEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthService{
 
@@ -48,18 +50,9 @@ class AuthService{
             "password" => Hash::make($data->password),
             "role" => "secretariat"
         ]);
-
-        $token = $newUser->createToken("Token Register User: ". $data->email);
-
-        return [
-            "user" => [
-                "email" => $newUser->email,
-                "lastname" => $newUser->lastname,
-                "firstname" => $newUser->firstname,
-                "role" => $newUser->role
-            ],
-            "access_token" => $token
-        ];
+        
+        // Asynchronous send of mail
+        Mail::to($newUser)->send(new VerifyUserEmail($newUser));
     }
 
     public function loginAsSecretary(LoginSecretaryDTO $data){
