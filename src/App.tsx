@@ -1,4 +1,4 @@
-import Register from "./components/Register"
+import Register from "./features/auth/components/Register"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
 function App() {

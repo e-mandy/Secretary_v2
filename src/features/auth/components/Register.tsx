@@ -1,9 +1,10 @@
 import { Lock, Mail, User } from "lucide-react";
-import { useRegister } from "../features/auth/api/useRegister";
+import { useRegister } from "../api/useRegister";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { registerSchema, type RegisterUser } from "../features/auth/schemas/register.schema";
+import { registerSchema, type RegisterUser } from "../schemas/register.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../../components/Spinner";
 
 const Register = () => {
     const { mutate, isPending } = useRegister();
@@ -82,7 +83,10 @@ const Register = () => {
                         </div>
                             {errors.password_confirmation?.message && (<span className="error-message">{errors.password_confirmation?.message}</span>)}
                     </div>
-                    <button type="submit" className="bg-[#111624] w-full text-white py-3 rounded-lg my-3 cursor-pointer active:bg-[#212a46]">S'inscrire en tant que sécrétaire</button>
+                    <button type="submit" className="bg-[#111624] w-full text-white py-3 rounded-lg my-3 cursor-pointer active:bg-[#212a46] flex gap-3">
+                        {isPending && (<Spinner color="white" height="24" width="24" visible={true} />)}
+                        <p>{ isPending ? "Chargement" : "S'inscrire en tant que sécrétaire" }</p>
+                    </button>
                     <p>Vous avez déjà un compte sécrétaire ? <span>Connectez-vous !!</span></p>
                 </form>
             </div>
