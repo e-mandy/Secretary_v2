@@ -3,22 +3,18 @@ import { useRegister } from "../api/useRegister";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { registerSchema, type RegisterUser } from "../schemas/register.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
 import Spinner from "../../../components/Spinner";
 
 const Register = () => {
     const { mutate, isPending } = useRegister();
-
-    const navigate = useNavigate();
 
     const { handleSubmit, register, formState: { errors }, reset } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema)
     });
 
     const onSubmit: SubmitHandler<RegisterUser> = async (registerFormData) => {
-        mutate(registerFormData);
         reset();
-        navigate('/register');
+        mutate(registerFormData);
     }
 
   return (
@@ -83,7 +79,7 @@ const Register = () => {
                         </div>
                             {errors.password_confirmation?.message && (<span className="error-message">{errors.password_confirmation?.message}</span>)}
                     </div>
-                    <button type="submit" className="bg-[#111624] w-full text-white py-3 rounded-lg my-3 cursor-pointer active:bg-[#212a46] flex gap-3">
+                    <button type="submit" className="bg-[#111624] w-full text-white py-3 rounded-lg my-3 cursor-pointer active:bg-[#212a46] flex gap-3 justify-center">
                         {isPending && (<Spinner color="white" height="24" width="24" visible={true} />)}
                         <p>{ isPending ? "Chargement" : "S'inscrire en tant que sécrétaire" }</p>
                     </button>

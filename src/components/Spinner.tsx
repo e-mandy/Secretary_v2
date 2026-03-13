@@ -16,7 +16,7 @@ function Spinner({ height, width, color, visible }: SpinnerProps){
             color={color}
             visible={visible}
             ariaLabel="oval-loading"
-            secondaryColor="#4fa94d"
+            secondaryColor="#111624"
             strokeWidth={4}
             strokeWidthSecondary={4}
         />

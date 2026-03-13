@@ -1,21 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../api/axiosInstance"
 import type { RegisterUser } from "../schemas/register.schema"
-import { useAuthStore } from "../store/auth.store";
-import type { UserApiResponse } from "../schemas/auth_store.schema";
+import { useNavigate } from "react-router-dom";
 
-const register = async (user: RegisterUser): Promise<UserApiResponse> => {
+const register = async (user: RegisterUser) => {
     const response = await axiosInstance.post('/secretary/register', user);
     return response.data;
 }
 
 export const useRegister = () => {
-    const { setAuthStore } = useAuthStore();
+    const navigate = useNavigate();
 
     return useMutation({
         mutationFn: register,
-        onSuccess: (data) => {
-            setAuthStore(data);
+        onSuccess: () => {
+            navigate('/secretary/verify-email');
         },
         onError: (error) => {
             console.log(error);
