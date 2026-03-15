@@ -13,7 +13,8 @@ export const useRegister = () => {
 
     return useMutation({
         mutationFn: register,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            console.log(data);
             navigate('/secretary/verify-email');
         },
         onError: (error) => {

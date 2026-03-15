@@ -1,5 +1,4 @@
 import { Info, MailCheck, MailSearch, MoveLeft } from "lucide-react"
-import Spinner from "../../../components/Spinner"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 
 const EmailVerify = () => {
