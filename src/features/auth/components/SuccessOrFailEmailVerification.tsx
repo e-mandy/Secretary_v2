@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useEmailVerify } from "../api/useEmailVerify"
 import { useParams, useSearchParams } from "react-router-dom"
 import Spinner from "../../../components/Spinner";
+import Success from "../../../components/Success";
 
 const SuccessOrFailEmailVerification = () => {
-    const { isPending, mutate } = useEmailVerify();
-    const [isVerified, setIsVerified] = useState(false);
+    const { isPending, mutate, isSuccess } = useEmailVerify();
 
     // We pick the id and the hash from the link sent in the user email
     const { id, hash } = useParams<{id: string, hash: string}>();
@@ -30,6 +30,13 @@ const SuccessOrFailEmailVerification = () => {
         <div className="flex w-screen h-screen m-auto">
             <Spinner width="30" height="30" color="white" visible={true} />
             <p>Patientez un petit moment encore !!</p>
+        </div>
+    )
+
+    if(isSuccess) return (
+        <div className="w-screen h-screen m-auto">
+            <Success />
+            <p>Bravo !! Votre email est vérifiée. Vous allez étre redirigé sur votre espace dans quelques instants.</p>
         </div>
     )
 }
