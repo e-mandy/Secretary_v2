@@ -1,14 +1,21 @@
-import { SubmitHandler, useForm } from "react-hook-form"
+import { type SubmitHandler,  useForm } from "react-hook-form"
 import { loginSchema, type LoginUser } from "../schemas/login.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Lock, Mail } from "lucide-react";
+import useLogin from "../api/useLogin";
+import Spinner from "../../../components/Spinner";
 
 const Login = () => {
+    const { mutate, isPending } = useLogin();
 
-    const { register, formState: { errors } } = useForm<LoginUser>({
+    const { reset, handleSubmit, register, formState: { errors } } = useForm<LoginUser>({
         resolver: zodResolver(loginSchema),
     });
 
-    const onSubmit: SubmitHandler<LoginUser> = 
+    const onSubmit: SubmitHandler<LoginUser> = async(loginFormData) => {
+        reset();
+        mutate(loginFormData);
+    }
 
 
   return (
@@ -23,7 +30,7 @@ const Login = () => {
                     <div className="my-3">
                         <label htmlFor="email" className="font-semibold">Nom de famille</label>
                         <div className="input-style">
-                            <User />
+                            <Mail />
                             <input {...register('email')} className="outline-none flex-1 py-3 pl-2" type="email" name="email" id="email" />
                         </div>
                             {errors.email?.message && (<span className="error-message">{errors.email?.message}</span>)}
@@ -32,7 +39,7 @@ const Login = () => {
                     <div className="my-3">
                         <label htmlFor="password" className="font-semibold">Prénom</label>
                         <div className="input-style">
-                            <User />
+                            <Lock />
                             <input {...register('password')} className="outline-none flex-1 py-3 pl-2" type="text" name="password" id="password" />
                         </div>
                             {errors.password?.message && (<span className="error-message">{errors.password?.message}</span>)}
