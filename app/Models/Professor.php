@@ -11,4 +11,8 @@ class Professor extends Model
         "firstanme",
         "email"
     ];
+
+    public function matters(){
+        return $this->belongsToMany(Matter::class);
+    }
 }
