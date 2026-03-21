@@ -8,11 +8,11 @@ class Professor extends Model
 {
     protected $fillable = [
         "lastname",
-        "firstanme",
+        "firstname",
         "email"
     ];
 
     public function matters(){
-        return $this->belongsToMany(Matter::class);
+        return $this->belongsToMany(Matter::class, "professor_matter");
     }
 }

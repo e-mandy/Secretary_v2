@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ApiController\Professor;
 use App\DTOs\Professor\ProfessorStoreDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Professor\StoreProfessorRequest;
-use ProfessorService;
+use App\Services\ProfessorService;
 
 class ProfessorController extends Controller
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use App\DTOs\Professor\ProfessorStoreDTO;
 use App\Models\Professor;
 

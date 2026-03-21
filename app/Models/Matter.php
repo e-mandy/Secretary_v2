@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Matter extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         "name"
     ];
 
     public function professors(){
-        return $this->belongsToMany(Professor::class);
+        return $this->belongsToMany(Professor::class, "professor_matter");
     }
 }
