@@ -33,6 +33,7 @@ class ProfessorController extends Controller
 
         return response()->json([
             "type" => "Professor Storage",
+            "message" => "Professeur creé avec succès",
             "data" => [
                 "professor" => $response
             ]
@@ -46,9 +47,20 @@ class ProfessorController extends Controller
 
         return response()->json([
             "type" => "Professor Update",
+            "message" => "Informations du professeur modifiées avec succès",
             "data" => [
                 "professor" => $response
             ]
         ], 200);
+    }
+
+    public function delete(Professor $professor){
+        $response = $this->service->destroy($professor);
+
+        if($response) return response()->json([
+            "type" => "Professor Delete",
+            "message" => "Professeur supprimé avec succès"
+        ], 204);
+        // The 204 status for NO CONTENT
     }
 }

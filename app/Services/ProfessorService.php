@@ -51,4 +51,10 @@ class ProfessorService{
 
         return new ProfessorResource($updatedProf);
     }
+
+    public function destroy(Professor $professor){
+        if($professor->has("matter")) $professor->matters()->detach();
+
+        return $professor->delete();
+    }
 }

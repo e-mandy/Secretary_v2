@@ -23,3 +23,4 @@ Route::get('/secretary/email-verify/{id}/{hash}', [SecretaryController::class, '
 Route::get("/secretary/professors", [ProfessorController::class, 'index']);
 Route::post("/secretary/professor/create", [ProfessorController::class, 'create']);
 Route::put("/secretary/professor/{professorId}", [ProfessorController::class, 'update']);
+Route::delete("/secretary/professor/{professorId}", [ProfessorController::class, "delete"]);
