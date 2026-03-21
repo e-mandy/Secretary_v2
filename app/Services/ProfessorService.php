@@ -3,11 +3,12 @@
 namespace App\Services;
 
 use App\DTOs\Professor\ProfessorStoreDTO;
+use App\DTOs\Professor\ProfessorUpdateDTO;
 use App\Http\Resources\ProfessorResource;
 use App\Models\Professor;
 
 class ProfessorService{
-    
+
     public function index(){
         $professors = Professor::limit(10)->get();
 
@@ -31,5 +32,23 @@ class ProfessorService{
         $professor->load('matters');
 
         return new ProfessorResource($professor);
+    }
+
+    public function update(Professor $professor, ProfessorUpdateDTO $data){
+        // If there is any update about the table of matters, we synchronize with current database
+        if($professor->has("matters")){
+            $professor->matters()->sync($data->matters);
+        }
+
+        $professor->update([
+            "lastname" => $data->lastname,
+            "firstname" => $data->firstname,
+            "email" => $data->email,
+        ]);
+
+        $updatedProf = $professor->fresh();
+        $updatedProf->load("matters");
+
+        return new ProfessorResource($updatedProf);
     }
 }

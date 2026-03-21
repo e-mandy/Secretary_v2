@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\ApiController\Professor;
 
 use App\DTOs\Professor\ProfessorStoreDTO;
+use App\DTOs\Professor\ProfessorUpdateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Professor\StoreProfessorRequest;
+use App\Http\Requests\Professor\UpdateProfessorRequest;
+use App\Models\Professor;
 use App\Services\ProfessorService;
 
 class ProfessorController extends Controller
@@ -34,5 +37,11 @@ class ProfessorController extends Controller
                 "professor" => $response
             ]
         ], 201);
+    }
+
+    public function update(Professor $professor, UpdateProfessorRequest $request){
+        $data = ProfessorUpdateDTO::fromRequest($request);
+
+        $response = $this->service->update($professor, $data);
     }
 }
