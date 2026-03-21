@@ -7,6 +7,7 @@ use App\Http\Resources\ProfessorResource;
 use App\Models\Professor;
 
 class ProfessorService{
+    
     public function index(){
         $professors = Professor::limit(10)->get();
 
