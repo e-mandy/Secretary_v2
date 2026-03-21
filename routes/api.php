@@ -20,4 +20,5 @@ Route::get('/secretary/email-verify/{id}/{hash}', [SecretaryController::class, '
 
 
 // ---- Professor Module Routes ---- //
+Route::get("/secretary/professors", [ProfessorController::class, 'index']);
 Route::post("/secretary/professor/store", [ProfessorController::class, 'store']);

@@ -14,6 +14,15 @@ class ProfessorController extends Controller
     )
     {}
 
+    public function index(){
+        $response = $this->service->index();
+
+        return response()->json([
+            "type" => "Get Professors",
+            "data" => $response
+        ], 200);
+    }
+
     public function store(StoreProfessorRequest $request){
         $data = ProfessorStoreDTO::fromRequest($request);
 

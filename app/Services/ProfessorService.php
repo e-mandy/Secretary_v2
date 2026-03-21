@@ -8,7 +8,7 @@ use App\Models\Professor;
 
 class ProfessorService{
     public function index(){
-        $professors = Professor::limit(10);
+        $professors = Professor::limit(10)->get();
 
         return ProfessorResource::collection($professors);
     }
