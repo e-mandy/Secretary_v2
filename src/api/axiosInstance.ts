@@ -7,6 +7,7 @@ export default axios.create({
 
 export const  axiosPrivateInstance = axios.create({
     baseURL: import.meta.env.BACKEND_URL,
+    // We include the credentials for the checking of the authentication token on the backend side.
     withCredentials: true,
     headers: { 
         'Content-Type': "application/json",
