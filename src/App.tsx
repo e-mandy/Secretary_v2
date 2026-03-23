@@ -5,6 +5,7 @@ import Login from "./features/auth/components/Login"
 import PersistLogin from "./features/auth/components/PersistLogin"
 import Register from "./features/auth/components/Register"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
+import Dashboard from "./features/dashboard/pages/Dashboard"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         {/** We have to set up the default layout for the app. */}
           <Route element={<AppLayout />}>
             {/** Now we can set each module route. */}
+            <Route path="/" element={<Dashboard />} />
           </Route>
         </Route>
       </Routes>

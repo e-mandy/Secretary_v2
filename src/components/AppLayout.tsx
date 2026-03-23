@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import SideBar from "./SideBar"
+import NavBar from "./NavBar"
 
 const AppLayout = () => {
   
@@ -11,7 +12,7 @@ const AppLayout = () => {
             </div>
             <div className="md:ml-72 relative w-full min-h-screen bg-yellow-300">
                 <div className="fixed w-full bg-blue-300">
-
+                    <NavBar />
                 </div>
                 <div className="mt-24">
                     <Outlet />
