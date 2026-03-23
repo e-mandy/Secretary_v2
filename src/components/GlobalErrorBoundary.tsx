@@ -15,6 +15,7 @@ export class GlobalErrorBoundary extends React.Component<Props, State>{
         return { hasError: true };
     }
 
+    // It catch an error occurs during the mounting of a component.
     public componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
         console.error("App Crashed : ", error, errorInfo.componentStack);
     }

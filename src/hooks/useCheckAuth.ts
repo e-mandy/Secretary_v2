@@ -1,18 +1,19 @@
-import { useState } from "react"
 import { useAxiosPrivate } from "./useAxiosPrivate";
+import { useQuery } from "@tanstack/react-query";
+
+
 
 export const useCheckAuth = () => {
-    const [error, setError] = useState();
     const axiosPrivateInstance = useAxiosPrivate();
     
-    const checkAuth = async () => {
-        try{
-            const response = await axiosPrivateInstance.get("/refresh");
-            return response;
-        }catch(error: any){
-            setError(error);
-        }
+    const check = async() => {
+        const response = await axiosPrivateInstance.get('/refresh');
+        return response.data;
     }
 
-    return { checkAuth, error };
+    return useQuery({
+        queryKey: ['user'],
+        queryFn: check,
+        throwOnError: true,
+    });
 }
