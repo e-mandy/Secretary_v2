@@ -40,4 +40,6 @@ export const useAxiosPrivate = () => {
             axiosPrivateInstance.interceptors.response.eject(responseInterceptor);
         }
     }, [token]);
+
+    return axiosPrivateInstance;
 }
