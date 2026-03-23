@@ -1,3 +1,4 @@
+import AppLayout from "./components/AppLayout"
 import EmailSent from "./features/auth/components/EmailSent"
 import EmailVerify from "./features/auth/components/EmailVerify"
 import Login from "./features/auth/components/Login"
@@ -17,16 +18,9 @@ function App() {
         <Route element={<PersistLogin />}>
 
         {/** We have to set up the default layout for the app. */}
-          <div className="w-screen flex relative">
-            <div className="w-72 fixed left-0 bg-red-300">
-
-            </div>
-            <div className="md:ml-72 relative w-full min-h-screen bg-yellow-300">
-              <div className="fixed w-full bg-blue-300">
-
-              </div>
-            </div>
-          </div>
+          <Route element={<AppLayout />}>
+            {/** Now we can set each module route. */}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
