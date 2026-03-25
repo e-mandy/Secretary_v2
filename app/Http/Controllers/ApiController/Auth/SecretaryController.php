@@ -8,10 +8,11 @@ use App\DTOs\Auth\RegisterSecretaryDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginSecretaryRequest;
 use App\Http\Requests\Auth\RegisterSecretaryRequest;
-use App\Models\RefreshToken;
 use App\Services\AuthService;
+use App\Traits\Auth\HasAuthToken;
 use Exception;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class SecretaryController extends Controller
 {
@@ -88,5 +89,14 @@ class SecretaryController extends Controller
         if(!$refreshToken) return response()->json([
             "message" => "Token introuvable"
         ], 401);
+
+        $isVerified = HasAuthToken::verifyToken($refreshToken);
+        if(!$isVerified) return response()->json([
+            "message" => "Token invalide"
+        ], 403);
+
+        // Récupérez le user après tous les checks.
+        $user = PersonalAccessToken::findToken($refreshToken)->tokenable;
+        $response = $this->service->refresh($user, $refreshToken);
     }
 }

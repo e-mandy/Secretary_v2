@@ -7,6 +7,7 @@ use App\DTOs\Auth\LoginSecretaryDTO;
 use App\DTOs\Auth\RegisterEmailDTO;
 use App\DTOs\Auth\RegisterSecretaryDTO;
 use App\Mail\Auth\VerifyUserEmail;
+use App\Models\RefreshToken;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -137,11 +138,19 @@ class AuthService{
         }
     }
 
-    public function refresh(User $user){
-        $token = $user->createToken(
-            'Token Connexion User: '. $user->email,
-            ["*"],
-        );
+    public function refresh(User $user, $lastRefreshToken){
+        RefreshToken::where("token", $lastRefreshToken)->update([
+            "revoked_at" => now()
+        ]);
+        
+        $access_token = $user->generateAccesToken();
+
+        $refresh_token = $user->generateRefreshToken();
+
+        $user->refresh_tokens()->create([
+            "token" => $refresh_token,
+            "expires_at" => $user->getTokenExpiryDelay($refresh_token)
+        ]);
 
         return [
             "user" => [
@@ -150,7 +159,8 @@ class AuthService{
                 "firstname" => $user->firstname,
                 "role" => $user->role
             ],
-            "token" => $token
+            "access_token" => $access_token,
+            "refresh_token" => $refresh_token
         ];
     }
 }
