@@ -84,6 +84,8 @@ class SecretaryController extends Controller
     }
 
     public function refresh(Request $request){
+        // $refreshToken = $request->cookie("refreshToken");
+
         $refreshToken = $request->cookie("refreshToken");
 
         if(!$refreshToken) return response()->json([
@@ -100,8 +102,17 @@ class SecretaryController extends Controller
         
         $response = $this->service->refresh($user, $refreshToken);
         
-        $cookie = cookie("refreshToken", $response["refresh_token"], minutes: env("APP_TOKEN_DURATION"), sameSite: "Lax");
-        
+        $cookie = cookie(
+            "refreshToken",
+            $response["refresh_token"],
+            (int) env("APP_TOKEN_DURATION"),
+            "/",
+            null,
+            false,
+            true,
+            false,
+            "Lax"
+        );
         return response()->json([
             "message" => "User re-logged",
             "user" => $response["user"],
