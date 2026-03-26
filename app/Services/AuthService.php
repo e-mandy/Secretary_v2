@@ -139,10 +139,11 @@ class AuthService{
     }
 
     public function refresh(User $user, $lastRefreshToken){
+
         RefreshToken::where("token", $lastRefreshToken)->update([
             "revoked_at" => now()
         ]);
-        
+
         $access_token = $user->generateAccesToken();
 
         $refresh_token = $user->generateRefreshToken();

@@ -84,8 +84,8 @@ class SecretaryController extends Controller
     }
 
     public function refresh(Request $request){
-        // $refreshToken = $request->cookie("refreshToken");
 
+        
         $refreshToken = $request->cookie("refreshToken");
 
         if(!$refreshToken) return response()->json([

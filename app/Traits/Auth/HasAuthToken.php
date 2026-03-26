@@ -8,14 +8,15 @@ use Laravel\Sanctum\NewAccessToken;
 trait HasAuthToken{
 
     public static function verifyToken($token){
+
         $existedToken = RefreshToken::where('token', $token)->first();
+
         if(!$existedToken || now()->gt($existedToken->expires_at)) return false;
 
         if($existedToken->revoked_at != null) return false;
 
         return true;
     }
-
 
     /**
      * The function which generates access token
