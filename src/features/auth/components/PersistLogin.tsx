@@ -1,18 +1,25 @@
-import { useEffect } from 'react';
-import { useCheckAuth } from '../../../hooks/useCheckAuth';
-import { useAuthStore } from '../store/auth.store';
+import { useEffect, useState } from 'react';
 import Spinner from '../../../components/Spinner';
 import { Outlet } from 'react-router-dom';
+import { useRefreshToken } from '../../../hooks/useRefreshToken';
 
 const PersistLogin = () => {
-    const { checkQuery: { data, isSuccess, isLoading } } = useCheckAuth();
-    const { setAuthStore } = useAuthStore()
+    const refresh = useRefreshToken();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if(isSuccess){
-            setAuthStore(data);
+        const verifyRefreshToken = async () => {
+            try{
+                await refresh();
+            }catch(e: any){
+                
+            }finally{
+                setIsLoading(false);
+            }
         }
-    }, [isSuccess]);
+
+        verifyRefreshToken();
+    }, []);
 
   return isLoading ? (
     <div className='h-screen w-screen flex m-auto'>

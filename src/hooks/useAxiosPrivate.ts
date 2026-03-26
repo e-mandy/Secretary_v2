@@ -1,11 +1,11 @@
 import { useLayoutEffect } from "react"
 import { useAuthStore } from "../features/auth/store/auth.store";
 import { axiosPrivateInstance } from "../api/axiosInstance";
-import { useCheckAuth } from "./useCheckAuth";
+import { useRefreshToken } from "./useRefreshToken";
 
 export const useAxiosPrivate = () => {
     const { token } = useAuthStore();
-    const { check } = useCheckAuth();
+    const refresh = useRefreshToken()
 
     useLayoutEffect(() => {
         const requestIntercetor = axiosPrivateInstance.interceptors.request.use(
@@ -25,8 +25,8 @@ export const useAxiosPrivate = () => {
             async (error) => {
                 const prevRequest = error?.config;
                 if(error?.response?.status === 401 && !prevRequest?.sent){
-                    const response = await check();
-                    prevRequest.headers["Authorization"] = `Bearer ${response.token}`;
+                    const token = await refresh();
+                    prevRequest.headers["Authorization"] = `Bearer ${token}`;
                     return axiosPrivateInstance(prevRequest);
                 }
                 return Promise.reject(error)
