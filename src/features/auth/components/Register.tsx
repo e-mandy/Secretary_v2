@@ -23,7 +23,7 @@ const Register = () => {
         <div className="w-1/2 h-screen flex">
             <div className="m-auto w-[55%]">
                 <div className="mb-10">
-                    <h2 className="text-4xl font-extrabold text-[#111624]">Inscription</h2>
+                    <h2 className="text-4xl font-extrabold text-primary">Inscription</h2>
                     <p>Bienvenue sur la plateforme de gestion du sécrétariat de Esgis</p>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

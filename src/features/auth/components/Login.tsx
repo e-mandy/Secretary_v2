@@ -24,7 +24,7 @@ const Login = () => {
         <div className="w-1/2 h-full flex">
             <div className="m-auto w-1/2">
                 <div className="mb-10">
-                    <h1 className="text-4xl font-extrabold text-[#111624] mb-4">Bon retour</h1>
+                    <h1 className="text-4xl font-extrabold text-primary mb-4">Bon retour</h1>
                     <p>Connectez vous pour accéder aux informations du secrétariat de Esgis.</p>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>

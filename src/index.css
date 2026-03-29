@@ -5,12 +5,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-    --color-primary: #111624,
-    --color-secondary: #FEF2F2,
-    --color-text-primary: #C41C2D
 
-}
 
 input{
     width: 100%;
@@ -37,6 +32,10 @@ input{
 }
 
 @theme inline {
+    --color-primary: #111624;
+    --color-secondary: #FEF2F2;
+    --color-text-primary: #C41C2D;
+    
     --font-heading: var(--font-sans);
     --font-sans: 'Inter Variable', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
@@ -63,7 +62,6 @@ input{
     --color-secondary-foreground: var(--secondary-foreground);
     --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
     --color-popover-foreground: var(--popover-foreground);
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
