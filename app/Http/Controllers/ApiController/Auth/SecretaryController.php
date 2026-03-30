@@ -249,11 +249,11 @@ class SecretaryController extends Controller
         $isVerified = HasAuthToken::verifyToken($refreshToken);
         if(!$isVerified) return response()->json([
             "message" => "Token invalide"
-        ], 403);
-
+            ], 403);
+            
         // Récupérez le user après tous les checks.
         $user = PersonalAccessToken::findToken($refreshToken)->tokenable;
-        
+            
         $response = $this->service->refresh($user, $refreshToken);
         
         $cookie = cookie(
