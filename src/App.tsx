@@ -6,6 +6,7 @@ import PersistLogin from "./features/auth/components/PersistLogin"
 import Register from "./features/auth/components/Register"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import Dashboard from "./features/dashboard/pages/Dashboard"
+import Professors from "./features/professor/components/Professors"
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
           <Route element={<AppLayout />}>
             {/** Now we can set each module route. */}
             <Route path="/" element={<Dashboard />} />
-            
+            <Route  path="/secretary/professors" element={<Professors />} />
           </Route>
         </Route>
       </Routes>
