@@ -19,7 +19,7 @@ const AppSideBar = () => {
   console.log(user);
 
   return (
-    <Sidebar className="w-full">
+    <Sidebar className="max-w-full">
       <SidebarHeader>
         <div className="flex items-center gap-3 px-2 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
