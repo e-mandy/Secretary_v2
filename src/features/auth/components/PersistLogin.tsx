@@ -14,6 +14,8 @@ const PersistLogin = () => {
     useEffect(() => {
         const verifyRefreshToken = async () => {
             try{
+                // We don't need to refresh if the auth store isn't empty. 
+                if(isAuth) return;
                 await refresh();
             }catch(e: any){
                 if(e?.response?.status === 401 || e?.response?.status === 403) {

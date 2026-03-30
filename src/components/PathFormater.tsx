@@ -4,7 +4,7 @@ const PathFormater = () => {
     const locate = useLocation();
 
   return (
-    <div className='flex gap-2 w-full bg-red-300 py-4 px-6'>
+    <div className='flex gap-2 w-full py-4'>
         <Link to="/" className='hover:underline'>Tableau de bord</Link>
         { locate?.pathname && locate.pathname !== "/" && (
             <span>

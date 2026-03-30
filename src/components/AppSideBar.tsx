@@ -9,8 +9,8 @@ const AppSideBar = () => {
       label: "Menu Principal",
       items: [
         { title: "Tableau de Bord", icon: LayoutDashboard, href: "/" },
-        { title: "Professeurs", icon: Users, href: "secretary/professors" },
-        { title: "Documents", icon: Settings, href: "secretary/documents" },
+        { title: "Professeurs", icon: Users, href: "/secretary/professors" },
+        { title: "Documents", icon: Settings, href: "/secretary/documents" },
       ],
     },
   ]
