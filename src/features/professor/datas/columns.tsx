@@ -5,8 +5,29 @@ import type { ProfessorType } from "../schemas/professor.schema"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { ArrowUpDown, Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Checkbox } from "../../../components/ui/checkbox";
 
 export const columns: ColumnDef<ProfessorType>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                table.getIsAllPageRowsSelected() ||
+                (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Select row"
+            />
+        ),
+    },
     {
         accessorKey: "email",
         header: ({ column }) => {
@@ -52,11 +73,11 @@ export const columns: ColumnDef<ProfessorType>[] = [
                         <DropdownMenuItem>
                             <Eye/> Voir Professeur
                         </DropdownMenuItem>
-                        <DropdownMenuItem><Edit /> Modifier</DropdownMenuItem>
-                        <DropdownMenuItem><Trash /> Supprimer</DropdownMenuItem>
+                        <DropdownMenuItem><Edit />Modifier</DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-500"><Trash />Supprimer</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );
         }
-    }
+    },
 ]

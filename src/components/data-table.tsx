@@ -21,6 +21,7 @@ import {
 
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { SearchAlert } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -30,9 +31,11 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  
 }: DataTableProps<TData, TValue>) {
     
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [rowSelection, setRowSelection] = useState({})
     
     const table = useReactTable({
         data,
@@ -41,8 +44,10 @@ export function DataTable<TData, TValue>({
         getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
+        onRowSelectionChange: setRowSelection,
         state: {
             sorting,
+            rowSelection,
         }
     });
 
@@ -84,8 +89,12 @@ export function DataTable<TData, TValue>({
                     ))
                 ) : (
                     <TableRow>
-                    <TableCell colSpan={columns.length} className="h-24 text-center">
-                        No results.
+                    <TableCell colSpan={columns.length} className="w-full py-10">
+                        <div className="w-fit mx-auto flex flex-col items-center">
+                            <SearchAlert size={100} className="mb-4" />
+                            <h2 className="font-bold text-xl" >Aucun Résultat trouvé</h2>
+                            <p></p>
+                        </div>
                     </TableCell>
                     </TableRow>
                 )}

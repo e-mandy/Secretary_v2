@@ -2,19 +2,30 @@ import { DataTable } from "../../../components/data-table"
 import { columns } from "../datas/columns"
 
 const Professors = () => {
-    const professors = [
+    const professors: any = [
         {
             id: "1",
             email: "jonhdoe@gmail.com",
             lastname: "DOE",
             firstname: "John"
+        },
+        {
+            id: "2",
+            email: "jacques@gmail.com",
+            lastname: "DOE",
+            firstname: "Jacques"
         }
     ]
   return (
     <div className="w-full h-full">
-        <div>
-            <h1 className="text-3xl mb-2 font-bold">Professeurs</h1>
-            <p className="">Ayez le contrôle sur l'ensemble des professeurs du système.</p>
+        <div className="flex justify-between">
+            <div>
+                <h1 className="text-3xl mb-2 font-bold">Professeurs</h1>
+                <p className="">Ayez le contrôle sur l'ensemble des professeurs du système.</p>
+            </div>
+            <div>
+                <button className="px-4 py-2 bg-primary text-white rounded-xl text-lg cursor-pointer">Ajouter un professeur</button>
+            </div>
         </div>
         <div className="py-10">
             <DataTable columns={columns} data={professors} />
