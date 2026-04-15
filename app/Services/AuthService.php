@@ -72,7 +72,7 @@ class AuthService{
             env('FRONTEND_URL'),
             $emailHash
         );
-        
+
         // Asynchronous send of mail
         Mail::to($newUser)->send(new VerifyUserEmail($newUser, $frontendUrl));
     }
