@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Storage;
 class Document extends Model
 {
     protected $fillable = [
-        "title",
-        "file_size",
-        "description",
-        "file_path",
+        "label",
+        "type_doc",
         "file_mime_type",
+        "file_size",
+        "file_path",
+
+        "professor_id"
     ];
 
     // To ensure that the "file_url" method will be include in the document model
