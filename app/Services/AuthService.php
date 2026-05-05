@@ -69,6 +69,7 @@ class AuthService{
 
         // We cleanly construct the frontend URL, replacing the /api prefix from the generated route
         $frontendUrl = rtrim(env('FRONTEND_URL'), '/') . preg_replace('|^/api|', '', $emailHash);
+        var_dump($frontendUrl);
 
         // Asynchronous send of mail
         Mail::to($newUser)->send(new VerifyUserEmail($newUser, $frontendUrl));
