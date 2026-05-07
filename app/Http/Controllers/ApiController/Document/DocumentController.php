@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController\Document;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreContractRequest;
+use App\Http\Requests\Document\StoreDocumentRequest;
 use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 use App\Services\DocumentService;
@@ -48,13 +48,13 @@ class DocumentController extends Controller
      *     )
      * )
      */
-    public function store(StoreContractRequest $request){
+    public function store(StoreDocumentRequest $request){
         $response = $this->service->store($request);
 
         $data = new DocumentResource($response);
 
         return response()->json([
-            "message" => "Contrat crée avec succès",
+            "message" => "Document crée avec succès",
             "data" => $data
         ], 201);
     }

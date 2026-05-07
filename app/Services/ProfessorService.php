@@ -4,8 +4,11 @@ namespace App\Services;
 
 use App\DTOs\Professor\ProfessorStoreDTO;
 use App\DTOs\Professor\ProfessorUpdateDTO;
+use App\Http\Requests\Professor\StoreProfessorRequest;
 use App\Http\Resources\ProfessorResource;
+use App\Models\Document;
 use App\Models\Professor;
+use Illuminate\Support\Facades\DB;
 
 class ProfessorService{
 
@@ -15,23 +18,44 @@ class ProfessorService{
         return ProfessorResource::collection($professors);
     }
 
-    public function store(ProfessorStoreDTO $data){
-        $existingProf = Professor::where('email', $data->email)->first();
+    public function store(ProfessorStoreDTO $data, StoreProfessorRequest $request){
+        return DB::transaction(function() use ($data, $request){
 
-        // If the email for the professor already exists in the database.
-        if($existingProf) abort(400, "Cet email existe déjà.");
+            $existingProf = Professor::where('email', $data->email)->first();
+    
+            // If the email for the professor already exists in the database.
+            if($existingProf) abort(400, "Cet email existe déjà.");
+    
+            // We create the professor
+            $professor = Professor::create([
+                "lastname" => $data->lastname,
+                "firstname" => $data->firstname,
+                "email" => $data->email
+            ]);
 
-        $professor = Professor::create([
-            "lastname" => $data->lastname,
-            "firstname" => $data->firstname,
-            "email" => $data->email
-        ]);
+            // We check some likely documents
+            if($request->hasFile("documents")){
+                foreach($request->file("document") as $file){
+                    $file_path = $file->store('uploads/documents', 'public');
 
-        // To attach the professor to his different matters.ers);
-        $professor->matters()->attach($data->matters);
-        $professor->load('matters');
+                    $data = [
+                        "title" => $file->getBasename(),
+                        "file_path" => $file_path,
+                        "file_mime_type" => $file->getMimeType(),
+                        "file_size" => $file->getSize(),
+                        "professor_id" => $professor->id
+                    ];
 
-        return new ProfessorResource($professor);
+                    $document = Document::create($data);
+                }
+            }
+    
+            // To attach the professor to his different matters.ers);
+            $professor->matters()->attach($data->matters);
+            $professor->load('matters');
+    
+            return new ProfessorResource($professor);
+        });
     }
 
     public function update(Professor $professor, ProfessorUpdateDTO $data){
