@@ -109,9 +109,7 @@ class ProfessorController extends Controller
         return response()->json([
             "type" => "Professor Storage",
             "message" => "Professeur creé avec succès",
-            "data" => [
-                "professor" => $response
-            ]
+            "data" => $response
         ], 201);
     }
 
