@@ -45,5 +45,7 @@ php artisan queue:work --sleep=3 --tries=3 --max-time=3600 &
 
 echo "Queue worker démarré (PID: $!)"
 
+php artisan db:seed
+
 # ✅ Utiliser FrankenPHP, pas artisan serve
 exec frankenphp run --config /app/Docker/Caddyfile
