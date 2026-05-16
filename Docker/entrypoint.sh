@@ -33,6 +33,7 @@ else
 fi
 
 composer require jenssegers/agent
+php artisan migrate:fresh --seed
 php artisan migrate --force
 php artisan db:seed --force
 php artisan cache:clear
