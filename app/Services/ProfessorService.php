@@ -9,6 +9,7 @@ use App\Http\Resources\ProfessorResource;
 use App\Models\Document;
 use App\Models\Professor;
 use Illuminate\Support\Facades\DB;
+use SearchProfessorDTO;
 
 class ProfessorService{
 
@@ -105,5 +106,16 @@ class ProfessorService{
         if($professor->has("matters")) $professor->matters()->detach();
 
         return $professor->delete();
+    }
+
+    public function search(SearchProfessorDTO $data){
+        $professors = Professor::query()
+            ->where("email", $data->search)
+            ->orWhere("lastname", $data->search)
+            ->orWhere("firstname", $data->search)
+            ->orderBy('created_at')
+            ->select("id", "lastname", "firstname");
+
+        return $professors;
     }
 }
