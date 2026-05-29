@@ -95,5 +95,10 @@ class ProfessorController extends Controller
 
         $response = $this->service->search($data);
 
+        return response()->json([
+            "type" => "Professor research",
+            "message" => "Professeurs correspondant à la recherche.",
+            "data" => $response
+        ], 200);
     }
 }
