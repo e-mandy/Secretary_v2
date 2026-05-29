@@ -68,9 +68,15 @@ class ProfessorService{
             $file_path = $file->store("uploads/documents", "public");
 
             $professor->documents()->create([
-                "title" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+                "title" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+                "file_path" => $file_path,
+                "file_mime_type" => $file->getClientMimeType(),
+                "file_size" => $file->getSize()
+                // professor_id is already in the table.
             ]);
         }
+
+        return true;
     }
 
     public function show(Professor $professor){

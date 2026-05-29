@@ -43,6 +43,13 @@ class ProfessorController extends Controller
 
     public function addDocument(Professor $professor, ProfessorAddDocumentRequest $request){
         $response = $this->service->addDocument($professor, $request->file("documents"));
+
+        if(!$response) abort(500, "Erreur lors de l'ajout de documents.");
+
+        return response()->json([
+            "type" => "Adding documents to Professor",
+            "message" => "Ajout du(es) document(es) avec succès"
+        ], 201);
     }
 
     public function show(Professor $professor){
