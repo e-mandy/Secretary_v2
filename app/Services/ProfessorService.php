@@ -58,6 +58,21 @@ class ProfessorService{
         });
     }
 
+    /**
+     * @param array<\Illuminate\Http\UploadedFile> $files
+     */
+    public function addDocument(Professor $professor, array $files){
+        if(!$files) abort(404, "Aucun fichier uploadé.");
+
+        foreach($files as $file){
+            $file_path = $file->store("uploads/documents", "public");
+
+            $professor->documents()->create([
+                "title" => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+            ]);
+        }
+    }
+
     public function show(Professor $professor){
         return new ProfessorResource($professor->load(["matters", "documents"]));
     }
