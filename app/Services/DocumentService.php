@@ -51,10 +51,10 @@ class DocumentService{
     //     return $document->fresh();
     // }
 
-    // public function delete(Document $document){
-    //     $path = $document->file_path;
-    //     $result = $document->delete() ? Storage::disk('public')->delete($path) : false;
+    public function delete(Document $document){
+        $path = $document->file_path;
+        $result = $document->delete() ? Storage::disk('public')->delete($path) : false;
 
-    //     return $result;
-    // }
+        return $result;
+    }
 }

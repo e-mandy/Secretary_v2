@@ -34,3 +34,4 @@ Route::get("/matters", [MatterController::class, 'index']);
 
 // ---- Document Module Routes ---- //
 Route::get("/documents/{document}/download", [DocumentController::class, 'download']);
+Route::delete("/documents/{document}", [DocumentController::class, "delete"]);
